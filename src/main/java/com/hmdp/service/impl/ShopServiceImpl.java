@@ -9,6 +9,7 @@ import com.hmdp.service.IShopService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -45,5 +46,17 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         stringRedisTemplate.opsForValue().set(key,JSONUtil.toJsonStr(shop));
         //返回
         return Result.ok(shop);
+    }
+
+    @Override
+    @Transactional
+    public Result update(Shop shop) {
+        Long id=shop.getId();
+        updateById(shop);
+        if(id==null){
+            return Result.fail("店铺id不能为空");
+        }
+        stringRedisTemplate.delete(CACHE_SHOP_KEY+id);
+        return Result.ok();
     }
 }
