@@ -1,15 +1,15 @@
 server:
-  port: 8081
+  port: //服务端端口号
 spring:
   application:
-    name: hmdp
+    name: //名称
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC
-    username: root
-    password: 20040507
+    url: jdbc:mysql://配置url
+    username: //数据库用户名
+    password: //数据库密码
   redis:
-    host: 192.168.109.128
+    host: //虚拟机地址--运行redis
     port: 6379
     lettuce:
       pool:
